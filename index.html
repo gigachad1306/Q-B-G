@@ -23,6 +23,7 @@
       --glass-border-dark: rgba(148, 163, 184, 0.2);
       --footer-bg-light: rgba(248, 250, 252, 0.9);
       --footer-bg-dark: rgba(15, 23, 42, 0.9);
+      --footer-height: 80px;
     }
 
     * {
@@ -42,7 +43,6 @@
       overflow-x: hidden;
     }
 
-    /* Enhanced Animated Gradient Background */
     body::before {
       content: "";
       position: fixed;
@@ -71,7 +71,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Floating particles animation */
     body::after {
       content: "";
       position: fixed;
@@ -111,7 +110,8 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 40px 20px;
+      padding: 40px 20px var(--footer-height);
+      margin-bottom: var(--footer-height);
     }
 
     .header {
@@ -176,7 +176,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 40px;
-      max-width: 900px;
+      max-width: 1200px;
       width: 100%;
       padding: 0 20px;
     }
@@ -210,6 +210,12 @@
 
     .card:nth-child(2) {
       animation-delay: 0.4s;
+    }
+    .card:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+    .card:nth-child(4) {
+      animation-delay: 0.8s;
     }
 
     @keyframes slideUp {
@@ -316,6 +322,7 @@
       right: 0;
       text-align: center;
       padding: 20px;
+      height: var(--footer-height);
       font-size: 14px;
       font-weight: 500;
       background: var(--footer-bg-light);
@@ -359,7 +366,6 @@
       box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
     }
 
-    /* Floating elements */
     .floating-shapes {
       position: fixed;
       top: 0;
@@ -426,6 +432,7 @@
     @media (max-width: 768px) {
       .main-container {
         padding: 20px 16px;
+        margin-bottom: 0;
       }
 
       .header {
@@ -472,6 +479,7 @@
       footer {
         position: relative;
         margin-top: 40px;
+        height: auto;
       }
     }
 
@@ -530,6 +538,22 @@
           Generate professional barcodes in multiple formats including Code 128, EAN-13, UPC, and more industry standards.
         </div>
       </div>
+
+      <div class="card" onclick="location.href='help.html'">
+        <div class="card-icon">❓</div>
+        <div class="card-title">Help & Documentation</div>
+        <div class="card-description">
+          Get help with using our QR code and barcode generators, including format requirements and best practices.
+        </div>
+      </div>
+
+      <div class="card" onclick="location.href='contact.html'">
+        <div class="card-icon">📧</div>
+        <div class="card-title">Contact Us</div>
+        <div class="card-description">
+          Reach out to our team for support, feedback, or partnership opportunities. We'd love to hear from you!
+        </div>
+      </div>
     </div>
   </div>
 
@@ -548,7 +572,6 @@
       initializeEventListeners() {
         this.themeToggle.addEventListener('click', () => this.toggleTheme());
         
-        // Add click effects to cards
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
           card.addEventListener('mouseenter', () => {
@@ -581,7 +604,6 @@
         
         this.themeToggle.textContent = isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
         
-        // Save theme preference
         localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
         
         this.showNotification(`Switched to ${isDarkMode ? 'dark' : 'light'} mode`);
@@ -598,12 +620,10 @@
       }
     }
 
-    // Initialize the application
     document.addEventListener('DOMContentLoaded', () => {
       new HomePage();
     });
 
-    // Add ripple effect on click
     document.addEventListener('click', (e) => {
       if (e.target.closest('.card')) {
         const card = e.target.closest('.card');
@@ -646,7 +666,6 @@
       }
     });
 
-    // Add some Easter eggs
     let clickCount = 0;
     document.addEventListener('click', () => {
       clickCount++;
