@@ -521,6 +521,11 @@
             <option value="EAN8">EAN-8</option>
             <option value="UPC">UPC</option>
             <option value="ITF14">ITF-14</option>
+            <option value="ITF">Interleaved 2 of 5</option>
+            <option value="MSI">MSI</option>
+            <option value="pharmacode">Pharmacode</option>
+            <option value="codabar">Codabar</option>
+            <option value="POSTNET">POSTNET</option>
           </select>
         </div>
         <div class="option-group">
@@ -549,6 +554,9 @@
         <a href="qr.html" class="btn" style="background: linear-gradient(135deg, var(--accent), var(--primary));">
           <span>📱 QR Code Generator</span>
         </a>
+	<a href="help.html" class="btn" style="background: linear-gradient(135deg, #6b7280, #4b5563);">
+	 <span>❓ Help Center</span>
+	</a>
       </div>
     </div>
   </div>
@@ -620,10 +628,20 @@
             return /^\d{11,12}$/.test(text.replace(/\s/g, ''));
           case 'ITF14':
             return /^\d{13,14}$/.test(text.replace(/\s/g, ''));
+          case 'ITF':
+            return /^\d+$/.test(text.replace(/\s/g, ''));
+          case 'MSI':
+            return /^\d+$/.test(text.replace(/\s/g, ''));
+          case 'POSTNET':
+            return /^\d{5,11}$/.test(text.replace(/\s/g, ''));
+          case 'codabar':
+            return /^[A-Da-d][0-9\-\$\:\.\/\+]+[A-Da-d]$/.test(text);
           case 'CODE39':
             return /^[A-Z0-9\-\.\s\$\/\+\%]*$/.test(text.toUpperCase());
           case 'CODE128':
             return text.length > 0;
+          case 'pharmacode':
+            return /^\d+$/.test(text.replace(/\s/g, '')) && parseInt(text) >= 3 && parseInt(text) <= 131070;
           default:
             return text.length > 0;
         }
