@@ -304,10 +304,16 @@
       color: var(--text-dark);
     }
 
-    #theme-toggle {
+    .top-buttons {
       position: fixed;
       top: 24px;
       right: 24px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    #theme-toggle {
       cursor: pointer;
       background: var(--card-bg-light);
       border: 2px solid var(--glass-border-light);
@@ -320,6 +326,7 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin: 0;
     }
 
     #theme-toggle:hover {
@@ -330,6 +337,36 @@
     }
 
     .dark-mode #theme-toggle {
+      background: var(--card-bg-dark);
+      border-color: var(--glass-border-dark);
+    }
+
+    .home-button {
+      cursor: pointer;
+      background: var(--card-bg-light);
+      border: 2px solid var(--glass-border-light);
+      color: inherit;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .home-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      background: var(--primary);
+      color: white;
+    }
+
+    .dark-mode .home-button {
       background: var(--card-bg-dark);
       border-color: var(--glass-border-dark);
     }
@@ -471,9 +508,13 @@
         padding: 30px;
       }
 
-      #theme-toggle {
+      .top-buttons {
         top: 16px;
         right: 16px;
+      }
+
+      .home-button,
+      #theme-toggle {
         padding: 10px 14px;
         font-size: 14px;
       }
@@ -497,11 +538,18 @@
       .contact-info {
         grid-template-columns: 1fr;
       }
+
+      .top-buttons {
+        gap: 8px;
+      }
     }
   </style>
 </head>
 <body>
-  <button id="theme-toggle">🌙 Dark Mode</button>
+  <div class="top-buttons">
+    <button id="theme-toggle">🌙 Dark Mode</button>
+    <a href="index.html" class="home-button">🏠 Home</a>
+  </div>
   
   <div class="floating-shapes">
     <div class="shape"></div>
@@ -517,7 +565,7 @@
     </div>
 
     <div class="contact-container">
-      <form class="contact-form" id="contactForm" action="https://formsubmit.co/8adf1d5ecd5705cb0ebf8daf38dadeed" method="POST">
+      <form class="contact-form" id="contactForm" action="https://formsubmit.co/24350007@iitgn.ac.in" method="POST">
         <input type="hidden" name="_next" value="https://gigachad1306.github.io/Q-B-G/thank-you.html">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="box">
@@ -555,19 +603,19 @@
         <div class="info-card">
           <div class="info-icon">📧</div>
           <h3 class="info-title">Email Us</h3>
-          <p class="info-value">reach.qbg@gmail.com</p>
+          <p class="info-value">support@codegenerators.com</p>
         </div>
         
         <div class="info-card">
           <div class="info-icon">📱</div>
           <h3 class="info-title">Call Us</h3>
-          <p class="info-value">Not Available Yet</p>
+          <p class="info-value">+1 (555) 123-4567</p>
         </div>
         
         <div class="info-card">
           <div class="info-icon">🏢</div>
           <h3 class="info-title">Visit Us</h3>
-          <p class="info-value">IIT Gandhinagar, Gandhinagar, Gujarat - 382355</p>
+          <p class="info-value">123 Tech Street, Silicon Valley, CA 94025</p>
         </div>
       </div>
     </div>
