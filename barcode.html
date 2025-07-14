@@ -433,6 +433,22 @@
       background: linear-gradient(135deg, var(--error), #dc2626);
       box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
     }
+
+    /* Navigation Buttons */
+    .navigation-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .navigation-buttons .btn {
+      margin-top: 0;
+      flex: 1;
+      min-width: 180px;
+    }
+
     @media (max-width: 640px) {
       .container {
         padding: 20px 16px;
@@ -458,7 +474,17 @@
         padding: 10px 14px;
         font-size: 14px;
       }
+
+      .navigation-buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .navigation-buttons .btn {
+        width: 100%;
+      }
     }
+
     @media (max-width: 480px) {
       .card {
         padding: 20px;
@@ -506,7 +532,7 @@
           <input type="number" id="height" value="100" min="50" max="200" />
         </div>
       </div>
-      <button id="generate-btn" class="btn" style="margin-top: 75px;">
+      <button id="generate-btn" class="btn">
         <span>📊 Generate Barcode</span>
       </button>
       <div id="barcode-wrapper" aria-live="polite" aria-atomic="true">
@@ -515,6 +541,15 @@
       <a id="download-btn" class="btn btn-success" download="barcode.png" style="display: none;">
         <span>📥 Download Barcode</span>
       </a>
+
+      <div class="navigation-buttons">
+        <a href="index.html" class="btn" style="background: linear-gradient(135deg, var(--warning), var(--error));">
+          <span>🏠 Homepage</span>
+        </a>
+        <a href="qr.html" class="btn" style="background: linear-gradient(135deg, var(--accent), var(--primary));">
+          <span>📱 QR Code Generator</span>
+        </a>
+      </div>
     </div>
   </div>
   <footer>
@@ -537,6 +572,7 @@
         this.initializeEventListeners();
         this.loadThemePreference();
       }
+      
       initializeEventListeners() {
         this.generateBtn.addEventListener('click', () => this.generateBarcode());
         this.input.addEventListener('keydown', (e) => {
@@ -545,13 +581,8 @@
           }
         });
         this.themeToggle.addEventListener('click', () => this.toggleTheme());
-        
-        // Auto-generate sample barcode on load
-        setTimeout(() => {
-          this.input.value = "Hello World!";
-          this.generateBarcode();
-        }, 500);
       }
+      
       showNotification(message, type = 'success') {
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
@@ -565,17 +596,20 @@
           setTimeout(() => document.body.removeChild(notification), 400);
         }, 3000);
       }
+      
       showLoading() {
         this.barcodeContainer.innerHTML = '<div class="loading-spinner"></div>';
         this.barcodeWrapper.classList.add('loading');
         this.generateBtn.disabled = true;
         this.generateBtn.innerHTML = '<span>🔄 Generating...</span>';
       }
+      
       hideLoading() {
         this.barcodeWrapper.classList.remove('loading');
         this.generateBtn.disabled = false;
         this.generateBtn.innerHTML = '<span>📊 Generate Barcode</span>';
       }
+      
       validateInput(text, format) {
         switch (format) {
           case 'EAN13':
@@ -594,6 +628,7 @@
             return text.length > 0;
         }
       }
+      
       generateBarcode() {
         const text = this.input.value.trim();
         const format = this.formatSelect.value;
