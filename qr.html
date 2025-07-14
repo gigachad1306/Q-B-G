@@ -447,6 +447,21 @@
       box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
     }
 
+    /* Navigation Buttons */
+    .navigation-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .navigation-buttons .btn {
+      margin-top: 0;
+      flex: 1;
+      min-width: 180px;
+    }
+
     @media (max-width: 640px) {
       .container {
         padding: 20px 16px;
@@ -471,6 +486,15 @@
         right: 16px;
         padding: 10px 14px;
         font-size: 14px;
+      }
+
+      .navigation-buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .navigation-buttons .btn {
+        width: 100%;
       }
     }
 
@@ -511,7 +535,7 @@
           <input type="color" id="bg-color" value="#ffffff" />
         </div>
       </div>
-      <button id="generate-btn" class="btn" style="margin-top: 75px;">
+      <button id="generate-btn" class="btn">
         <span>✨ Generate QR Code</span>
       </button>
 
@@ -522,6 +546,15 @@
       <a id="download-btn" class="btn btn-success" download="qr_code.png" style="display: none;">
         <span>📥 Download QR Code</span>
       </a>
+
+      <div class="navigation-buttons">
+        <a href="index.html" class="btn" style="background: linear-gradient(135deg, var(--warning), var(--error));">
+          <span>🏠 Homepage</span>
+        </a>
+        <a href="barcode.html" class="btn" style="background: linear-gradient(135deg, var(--accent), var(--primary));">
+          <span>📊 Barcode Generator</span>
+        </a>
+      </div>
     </div>
   </div>
 
