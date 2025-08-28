@@ -447,6 +447,21 @@
       box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
     }
 
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .action-buttons .btn {
+      margin-top: 0;
+      flex: 1;
+      min-width: 160px;
+    }
+
     /* Navigation Buttons */
     .navigation-buttons {
       display: flex;
@@ -486,6 +501,15 @@
         right: 16px;
         padding: 10px 14px;
         font-size: 14px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .action-buttons .btn {
+        width: 100%;
       }
 
       .navigation-buttons {
@@ -543,9 +567,14 @@
         <div id="qrcode"></div>
       </div>
 
-      <a id="download-btn" class="btn btn-success" download="qr_code.png" style="display: none;">
-        <span>📥 Download QR Code</span>
-      </a>
+      <div class="action-buttons" style="display: none;">
+        <a id="download-btn" class="btn btn-success" download="qr_code.png">
+          <span>📥 Download QR Code</span>
+        </a>
+        <button id="reset-btn" class="btn" style="background: linear-gradient(135deg, var(--warning), #d97706);">
+          <span>🔄 Reset</span>
+        </button>
+      </div>
 
       <div class="navigation-buttons">
         <a href="index.html" class="btn" style="background: linear-gradient(135deg, var(--warning), var(--error));">
@@ -574,6 +603,8 @@
         this.qrContainer = document.getElementById('qrcode');
         this.qrWrapper = document.getElementById('qrcode-wrapper');
         this.downloadBtn = document.getElementById('download-btn');
+        this.resetBtn = document.getElementById('reset-btn');
+        this.actionButtons = document.querySelector('.action-buttons');
         this.fgColorInput = document.getElementById('fg-color');
         this.bgColorInput = document.getElementById('bg-color');
         this.themeToggle = document.getElementById('theme-toggle');
@@ -590,6 +621,7 @@
           }
         });
         this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        this.resetBtn.addEventListener('click', () => this.resetQRCode());
       }
 
       showNotification(message, type = 'success') {
@@ -625,7 +657,7 @@
         const bgColor = this.bgColorInput.value;
 
         // Reset state
-        this.downloadBtn.style.display = 'none';
+        this.actionButtons.style.display = 'none';
         this.qrWrapper.classList.remove('active');
 
         if (!text) {
@@ -668,7 +700,7 @@
               const img = this.qrContainer.querySelector('img');
               if (img && img.src) {
                 this.downloadBtn.href = img.src;
-                this.downloadBtn.style.display = 'inline-flex';
+                this.actionButtons.style.display = 'flex';
                 this.showNotification('QR Code generated successfully! 🎉');
               }
             }, 500);
@@ -679,6 +711,29 @@
             this.showNotification('Error generating QR code. Please try again.', 'error');
           }
         }, 800);
+      }
+
+      resetQRCode() {
+        // Clear the input field
+        this.input.value = '';
+        
+        // Clear the QR code display
+        this.qrContainer.innerHTML = '';
+        
+        // Hide the action buttons
+        this.actionButtons.style.display = 'none';
+        
+        // Remove active state from wrapper
+        this.qrWrapper.classList.remove('active');
+        
+        // Reset colors to default
+        this.fgColorInput.value = '#000000';
+        this.bgColorInput.value = '#ffffff';
+        
+        // Focus back to input
+        this.input.focus();
+        
+        this.showNotification('Reset complete! Ready for new QR code', 'success');
       }
 
       toggleTheme() {
